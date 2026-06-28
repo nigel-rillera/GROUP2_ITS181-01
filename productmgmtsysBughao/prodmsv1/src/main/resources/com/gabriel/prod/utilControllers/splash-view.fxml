@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<!-- Splash Screen: Uses BorderPane as the root layout -->
+<BorderPane prefHeight="520.0" prefWidth="360.0"
+            styleClass="splash-root"
+            stylesheets="/css/styles.css"
+            xmlns="http://javafx.com/javafx/17.0.2-ea"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.gabriel.prod.utilControllers.SplashController">
+
+    <!-- TOP: App branding header -->
+    <top>
+        <VBox alignment="CENTER" spacing="4" styleClass="header-bar">
+            <padding>
+                <Insets bottom="16" left="20" right="20" top="16" />
+            </padding>
+            <Label text="Product Management System" styleClass="header-title" />
+            <Label text="Inventory &amp; Catalog Control" styleClass="header-subtitle" />
+        </VBox>
+    </top>
+
+    <!-- CENTER: Image + description card -->
+    <center>
+        <VBox alignment="CENTER" spacing="16">
+            <padding>
+                <Insets bottom="16" left="24" right="24" top="20" />
+            </padding>
+
+            <!-- Image pane with styled border -->
+            <StackPane fx:id="pane" prefHeight="180.0" prefWidth="280.0" styleClass="splash-image-pane">
+                <ImageView fx:id="productImage" fitHeight="170.0" fitWidth="270.0"
+                           pickOnBounds="true" preserveRatio="true" />
+            </StackPane>
+
+            <!-- Description text area -->
+            <TextArea fx:id="textArea"
+                      prefHeight="110.0" prefWidth="300.0"
+                      promptText="@Copyright"
+                      text="This is a Product Management Application template developed by Rijai Consulting."
+                      wrapText="true"
+                      editable="false"
+                      styleClass="splash-text-area">
+                <padding>
+                    <Insets bottom="8" left="8" right="8" top="8" />
+                </padding>
+            </TextArea>
+        </VBox>
+    </center>
+
+    <!-- BOTTOM: Action button -->
+    <bottom>
+        <VBox alignment="CENTER" spacing="8">
+            <padding>
+                <Insets bottom="24" left="24" right="24" top="8" />
+            </padding>
+            <Button fx:id="btnProceed" mnemonicParsing="false"
+                    onAction="#onProceed"
+                    text="Get Started →"
+                    prefWidth="200.0"
+                    styleClass="btn-proceed" />
+            <Label text="© 2025 Rijai Consulting. All rights reserved." styleClass="splash-subtitle" />
+        </VBox>
+    </bottom>
+</BorderPane>

@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<!--
+    Main Product View: Uses BorderPane as root layout.
+    - TOP    : header bar with logo and title
+    - LEFT   : product list panel
+    - CENTER : product detail form (GridPane)
+    - BOTTOM : action buttons bar
+-->
+<BorderPane fx:id="prodman"
+            prefHeight="620.0" prefWidth="680.0"
+            stylesheets="/css/styles.css"
+            xmlns="http://javafx.com/javafx/17.0.12"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.gabriel.prod.utilControllers.ProdManController">
+
+    <!-- ===== TOP: Header ===== -->
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="12" styleClass="header-bar">
+            <padding>
+                <Insets bottom="12" left="16" right="16" top="12" />
+            </padding>
+            <ImageView fx:id="productImage" fitHeight="40.0" fitWidth="40.0"
+                       pickOnBounds="true" preserveRatio="true" />
+            <VBox spacing="2">
+                <Label text="Product Management" styleClass="header-title" />
+                <Label text="Manage your product catalog" styleClass="header-subtitle" />
+            </VBox>
+        </HBox>
+    </top>
+
+    <!-- ===== LEFT: Product list panel ===== -->
+    <left>
+        <VBox spacing="8" prefWidth="220.0" styleClass="card">
+            <padding>
+                <Insets bottom="16" left="12" right="12" top="12" />
+            </padding>
+            <Label text="Product List" styleClass="section-label" />
+            <Separator />
+            <ListView fx:id="lvProducts"
+                      onMouseClicked="#onMouseClicked"
+                      VBox.vgrow="ALWAYS"
+                      prefHeight="440.0"
+                      styleClass="list-view" />
+            <Label text="Click a product to select" styleClass="info-label" />
+        </VBox>
+    </left>
+
+    <!-- ===== CENTER: Product Details (GridPane) ===== -->
+    <center>
+        <VBox spacing="16">
+            <padding>
+                <Insets bottom="16" left="16" right="16" top="16" />
+            </padding>
+
+            <Label text="Product Details" styleClass="form-title" />
+            <Separator />
+
+            <!-- GridPane for label/field pairs -->
+            <GridPane hgap="12" vgap="14" VBox.vgrow="ALWAYS">
+                <columnConstraints>
+                    <ColumnConstraints minWidth="110" prefWidth="120" />
+                    <ColumnConstraints hgrow="ALWAYS" />
+                </columnConstraints>
+                <rowConstraints>
+                    <RowConstraints minHeight="36" />
+                    <RowConstraints minHeight="36" />
+                    <RowConstraints minHeight="36" />
+                    <RowConstraints minHeight="36" />
+                </rowConstraints>
+
+                <!-- Row 0: ID -->
+                <Label text="Product ID" styleClass="field-label"
+                       GridPane.rowIndex="0" GridPane.columnIndex="0"
+                       GridPane.valignment="CENTER" />
+                <TextField fx:id="tfId" promptText="Auto-assigned (or enter manually)"
+                           editable="true"
+                           GridPane.rowIndex="0" GridPane.columnIndex="1" />
+
+                <!-- Row 1: Name -->
+                <Label text="Name" styleClass="field-label"
+                       GridPane.rowIndex="1" GridPane.columnIndex="0"
+                       GridPane.valignment="CENTER" />
+                <TextField fx:id="tfName" promptText="Product name"
+                           GridPane.rowIndex="1" GridPane.columnIndex="1" />
+
+                <!-- Row 2: Description -->
+                <Label text="Description" styleClass="field-label"
+                       GridPane.rowIndex="2" GridPane.columnIndex="0"
+                       GridPane.valignment="CENTER" />
+                <TextField fx:id="tfDesc" promptText="Short description"
+                           GridPane.rowIndex="2" GridPane.columnIndex="1" />
+
+                <!-- Row 3: Unit of Measure — editable ComboBox (kg, oz, liter + DB items) -->
+                <Label text="Unit of Measure" styleClass="field-label"
+                       GridPane.rowIndex="3" GridPane.columnIndex="0"
+                       GridPane.valignment="CENTER" />
+                <ComboBox fx:id="cbUom"
+                          editable="true"
+                          promptText="Select or type (e.g. kg, oz, liter)"
+                          maxWidth="Infinity"
+                          GridPane.rowIndex="3" GridPane.columnIndex="1"
+                          GridPane.hgrow="ALWAYS" />
+            </GridPane>
+        </VBox>
+    </center>
+
+    <!-- ===== BOTTOM: Action Buttons ===== -->
+    <bottom>
+        <HBox spacing="10" alignment="CENTER_RIGHT">
+            <padding>
+                <Insets bottom="14" left="16" right="16" top="14" />
+            </padding>
+            <Button fx:id="createButton" text="＋ New"
+                    onAction="#onCreate"
+                    styleClass="btn-success"
+                    prefWidth="90" />
+            <Button fx:id="updateButton" text="✎ Modify"
+                    onAction="#onUpdate"
+                    styleClass="btn-warning"
+                    prefWidth="90" />
+            <Button fx:id="deleteButton" text="✕ Delete"
+                    onAction="#onDelete"
+                    styleClass="btn-danger"
+                    prefWidth="90" />
+            <Button fx:id="closeButton" text="Close"
+                    onAction="#onClose"
+                    styleClass="btn-secondary"
+                    prefWidth="90" />
+        </HBox>
+    </bottom>
+</BorderPane>

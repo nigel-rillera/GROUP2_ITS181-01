@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<StackPane 
+    styleClass="bank-root" 
+    stylesheets="/css/app.css" 
+    xmlns="http://javafx.com/javafx/17.0.2-ea" 
+    xmlns:fx="http://javafx.com/fxml/1" 
+    fx:controller="com.gabriel.prod.utilControllers.TransactionHistoryController">
+
+    <!-- ── Main Layout: BorderPane (Sidebar + Content) ────────────────────────── -->
+    <BorderPane>
+        <!-- ── Left Sidebar ─────────────────────────────────────────────────── -->
+        <left>
+            <VBox prefWidth="190" minWidth="190" maxWidth="190" styleClass="sidebar">
+                
+                <!-- Profile Section -->
+                <VBox styleClass="sidebar-profile-section" spacing="2">
+                    <Label text="Welcome back" styleClass="sidebar-welcome-label" />
+                    <Label fx:id="lblOwnerName" text="Owner Name" styleClass="sidebar-owner-label" wrapText="true" />
+                    <Label fx:id="lblAccountNumber" text="ACC-XXXX" styleClass="sidebar-account-label" />
+                </VBox>
+
+                <!-- Navigation Section -->
+                <VBox styleClass="sidebar-nav-section" spacing="4">
+                    <Button text="Dashboard" styleClass="btn-sidebar-nav" maxWidth="Infinity" onAction="#onNavDashboard" />
+                    <Button text="Deposit" styleClass="btn-sidebar-nav" maxWidth="Infinity" onAction="#onDeposit" />
+                    <Button text="Withdraw" styleClass="btn-sidebar-nav" maxWidth="Infinity" onAction="#onWithdraw" />
+                    <Button text="Transaction history" styleClass="btn-sidebar-nav-active" maxWidth="Infinity" />
+                    <Region styleClass="divider-line" minHeight="1">
+                        <VBox.margin><Insets top="8" bottom="8" /></VBox.margin>
+                    </Region>
+                    <Button text="Log out" styleClass="btn-sidebar-logout" maxWidth="Infinity" onAction="#onLogOut" />
+                </VBox>
+                
+            </VBox>
+        </left>
+
+        <!-- ── Center Content Area ──────────────────────────────────────────── -->
+        <center>
+            <VBox spacing="20" styleClass="dashboard-main-content">
+                <padding><Insets top="26" right="26" bottom="26" left="26" /></padding>
+                
+                <!-- Back Link -->
+                <Button text="&#x2190; Back to dashboard" styleClass="btn-back-link" onAction="#onNavDashboard" alignment="CENTER_LEFT" />
+                
+                <!-- Header -->
+                <VBox spacing="2">
+                    <Label text="Transaction history" styleClass="dashboard-header-title" />
+                    <Label text="Full record of deposits and withdrawals" styleClass="dashboard-header-subtitle" />
+                </VBox>
+                
+                <!-- Transaction List Card -->
+                <VBox styleClass="activity-card" spacing="16" VBox.vgrow="ALWAYS">
+                    <Label text="All activity" styleClass="activity-header-title" />
+                    
+                    <!-- Scrollable list of transactions (max height ~380px) -->
+                    <ScrollPane fitToWidth="true" styleClass="dashboard-scroll-pane" prefHeight="380" minHeight="380" hbarPolicy="NEVER">
+                        <VBox fx:id="transactionList" spacing="0">
+                            <!-- Populated dynamically by controller -->
+                        </VBox>
+                    </ScrollPane>
+                </VBox>
+                
+            </VBox>
+        </center>
+    </BorderPane>
+
+</StackPane>

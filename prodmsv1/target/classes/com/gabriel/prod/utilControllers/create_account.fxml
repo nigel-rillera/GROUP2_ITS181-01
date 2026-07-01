@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<!--
+    create_account.fxml  —  BankSys Create Account Screen
+    Controller  : com.gabriel.prod.utilControllers.CreateAccountController
+    Root layout : StackPane (centers the card)
+    CSS         : /css/app.css
+-->
+
+<StackPane styleClass="bank-root" stylesheets="/css/app.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gabriel.prod.utilControllers.CreateAccountController">
+
+    <!--
+        CARD — white rounded container, fixed width ~320px.
+        VBox inside StackPane so StackPane centers it automatically.
+    -->
+    <VBox maxHeight="-Infinity" maxWidth="500.0" prefHeight="410.0" prefWidth="400.0" spacing="0" styleClass="card">
+
+        <padding>
+            <Insets bottom="28" left="28" right="28" top="28" />
+        </padding>
+
+        <!-- ── Header row: back arrow + two-line title block ──────────── -->
+        <HBox alignment="CENTER_LEFT" spacing="12">
+
+            <!-- Back-arrow button — navigates back to splash -->
+            <Button fx:id="btnBack" onAction="#onBack" styleClass="btn-back" text="←" />
+
+            <!-- Title + subtitle stacked vertically -->
+            <VBox spacing="2">
+                <Label styleClass="card-header-title" text="Create new account" />
+                <Label styleClass="card-header-subtitle" text="All fields are required" />
+            </VBox>
+
+        </HBox>
+
+        <!-- Spacing after header -->
+        <Region prefHeight="22" />
+
+        <!-- ── Field: Account number ───────────────────────────────────── -->
+        <Label styleClass="field-label-bank" text="Account number" />
+        <Region prefHeight="5" />
+        <TextField fx:id="tfAccountNumber" maxWidth="Infinity" promptText="e.g. ACC-20240001" styleClass="bank-text-field" />
+
+        <!-- Spacing -->
+        <Region prefHeight="14" />
+
+        <!-- ── Field: Owner name ───────────────────────────────────────── -->
+        <Label styleClass="field-label-bank" text="Owner name" />
+        <Region prefHeight="5" />
+        <TextField fx:id="tfOwnerName" maxWidth="Infinity" promptText="e.g. Juan dela Cruz" styleClass="bank-text-field" />
+
+        <!-- Spacing -->
+        <Region prefHeight="14" />
+
+        <!-- ── Field: Password ─────────────────────────────────────────── -->
+        <Label styleClass="field-label-bank" text="Password" />
+        <Region prefHeight="5" />
+        <PasswordField fx:id="pfPassword" maxWidth="Infinity" promptText="Create a password" styleClass="bank-text-field" />
+
+        <!-- Spacing -->
+        <Region prefHeight="14" />
+
+        <!-- ── Field: Account type (ComboBox) ─────────────────────────── -->
+        <Label styleClass="field-label-bank" text="Account type" />
+        <Region prefHeight="5" />
+        <ComboBox fx:id="cbAccountType" maxWidth="Infinity" promptText="Select account type" styleClass="bank-combo-box" />
+
+        <!-- Spacing before buttons -->
+        <Region prefHeight="22" />
+
+        <!-- ── Validation error message (hidden until needed) ─────────── -->
+        <Label fx:id="lblError" managed="false" maxWidth="Infinity" styleClass="validation-error" text="" visible="false" wrapText="true" />
+
+        <!-- ── Primary button: Create account ─────────────────────────── -->
+        <Button fx:id="btnCreateAccount" maxWidth="Infinity" onAction="#onCreateAccount" styleClass="btn-primary" text="✓  Create account" />
+
+        <!-- Spacing -->
+        <Region prefHeight="8" />
+
+        <!-- ── Cancel ghost button ────────────────────────────────────── -->
+        <Button fx:id="btnCancel" maxWidth="Infinity" onAction="#onCancel" styleClass="btn-cancel" text="Cancel" />
+
+    </VBox>
+
+</StackPane>

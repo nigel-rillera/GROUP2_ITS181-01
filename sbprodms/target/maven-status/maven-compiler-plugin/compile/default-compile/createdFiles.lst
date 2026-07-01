@@ -1,0 +1,5 @@
+com\gabriel\prod\serviceimpl\UomServiceImpl.class
+com\gabriel\prod\controller\UomController.class
+com\gabriel\prod\serviceimpl\ProductServiceImpl.class
+com\gabriel\prod\controller\ProductController.class
+com\gabriel\prod\ProductMSApplication.class

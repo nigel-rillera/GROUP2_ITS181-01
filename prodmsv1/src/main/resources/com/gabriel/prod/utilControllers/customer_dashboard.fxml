@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<StackPane 
+    styleClass="bank-root" 
+    stylesheets="/css/app.css" 
+    xmlns="http://javafx.com/javafx/17.0.2-ea" 
+    xmlns:fx="http://javafx.com/fxml/1" 
+    fx:controller="com.gabriel.prod.utilControllers.CustomerController">
+
+    <!-- ── Main Layout: BorderPane (Sidebar + Content) ────────────────────────── -->
+    <BorderPane>
+        <!-- ── Left Sidebar ─────────────────────────────────────────────────── -->
+        <left>
+            <VBox prefWidth="190" minWidth="190" maxWidth="190" styleClass="sidebar">
+                
+                <!-- Profile Section -->
+                <VBox styleClass="sidebar-profile-section" spacing="2">
+                    <Label text="Welcome back" styleClass="sidebar-welcome-label" />
+                    <Label fx:id="lblOwnerName" text="Owner Name" styleClass="sidebar-owner-label" wrapText="true" />
+                    <Label fx:id="lblAccountNumber" text="ACC-XXXX" styleClass="sidebar-account-label" />
+                </VBox>
+
+                <!-- Navigation Section -->
+                <VBox styleClass="sidebar-nav-section" spacing="4">
+                    <Button text="Dashboard" styleClass="btn-sidebar-nav-active" maxWidth="Infinity" />
+                    <Button text="Deposit" styleClass="btn-sidebar-nav" maxWidth="Infinity" onAction="#onDeposit" />
+                    <Button text="Withdraw" styleClass="btn-sidebar-nav" maxWidth="Infinity" onAction="#onWithdraw" />
+                    <Button text="Transaction history" styleClass="btn-sidebar-nav" maxWidth="Infinity" onAction="#onNavTransactionHistory" />
+                    <Region styleClass="divider-line" minHeight="1">
+                        <VBox.margin><Insets top="8" bottom="8" /></VBox.margin>
+                    </Region>
+                    <Button text="Log out" styleClass="btn-sidebar-logout" maxWidth="Infinity" onAction="#onLogOut" />
+                </VBox>
+                
+            </VBox>
+        </left>
+
+        <!-- ── Center Content Area ──────────────────────────────────────────── -->
+        <center>
+            <ScrollPane fitToWidth="true" styleClass="dashboard-scroll-pane" hbarPolicy="NEVER">
+                <VBox spacing="20" styleClass="dashboard-main-content">
+                    <padding><Insets top="26" right="26" bottom="26" left="26" /></padding>
+                    
+                    <!-- Header -->
+                    <VBox spacing="2">
+                        <Label text="Dashboard" styleClass="dashboard-header-title" />
+                        <Label text="Overview of your account" styleClass="dashboard-header-subtitle" />
+                    </VBox>
+                    
+                    <!-- Balance Card -->
+                    <VBox styleClass="balance-card" spacing="8">
+                        <Label text="Current balance" styleClass="balance-card-label" />
+                        <Label fx:id="lblBalance" text="₱0.00" styleClass="balance-card-amount" />
+                        <Label fx:id="lblBalanceSub" text="ACC-XXXX • Customer account" styleClass="balance-card-bottom" />
+                    </VBox>
+
+                    <!-- Action Cards Row -->
+                    <HBox spacing="14">
+                        <VBox styleClass="action-card" spacing="10" HBox.hgrow="ALWAYS" maxWidth="Infinity" onMouseClicked="#onDepositClick">
+                            <StackPane styleClass="action-icon-chip-deposit" prefWidth="36" prefHeight="36" maxWidth="36" maxHeight="36" alignment="CENTER_LEFT">
+                                <Label text="&#x21A7;" styleClass="action-icon-glyph-deposit" alignment="CENTER" />
+                            </StackPane>
+                            <VBox spacing="2">
+                                <Label text="Deposit" styleClass="action-card-title" />
+                                <Label text="Add funds to your account" styleClass="action-card-subtitle" wrapText="true" />
+                            </VBox>
+                        </VBox>
+                        
+                        <VBox styleClass="action-card" spacing="10" HBox.hgrow="ALWAYS" maxWidth="Infinity" onMouseClicked="#onWithdrawClick">
+                            <StackPane styleClass="action-icon-chip-withdraw" prefWidth="36" prefHeight="36" maxWidth="36" maxHeight="36" alignment="CENTER_LEFT">
+                                <Label text="&#x21A5;" styleClass="action-icon-glyph-withdraw" alignment="CENTER" />
+                            </StackPane>
+                            <VBox spacing="2">
+                                <Label text="Withdraw" styleClass="action-card-title" />
+                                <Label text="Take funds from your account" styleClass="action-card-subtitle" wrapText="true" />
+                            </VBox>
+                        </VBox>
+                    </HBox>
+
+                    <!-- Recent Activity Card -->
+                    <VBox styleClass="activity-card" spacing="16">
+                        <HBox alignment="CENTER_LEFT">
+                            <Label text="Recent activity" styleClass="activity-header-title" />
+                            <Region HBox.hgrow="ALWAYS" />
+                            <Button text="View all" styleClass="btn-view-all" onAction="#onNavTransactionHistory" />
+                        </HBox>
+                        
+                        <!-- Scrollable list of transactions (max 6 items, max height ~252px) -->
+                        <ScrollPane fitToWidth="true" styleClass="dashboard-scroll-pane" prefHeight="252" minHeight="252" maxHeight="252" hbarPolicy="NEVER">
+                            <VBox fx:id="transactionList" spacing="0">
+                                <!-- Populated dynamically by controller -->
+                            </VBox>
+                        </ScrollPane>
+                    </VBox>
+                    
+                </VBox>
+            </ScrollPane>
+        </center>
+    </BorderPane>
+
+    <!-- ── Modal Overlay (Hidden by default) ────────────────────────────────── -->
+    <StackPane fx:id="modalOverlay" styleClass="modal-overlay" visible="false" managed="false" alignment="CENTER">
+        <VBox styleClass="modal-card" prefWidth="340" maxWidth="340" maxHeight="-Infinity" spacing="16" StackPane.alignment="CENTER">
+            
+            <StackPane fx:id="modalIconChip" prefWidth="40" prefHeight="40" maxWidth="40" maxHeight="40" alignment="CENTER_LEFT">
+                <Label fx:id="modalIconGlyph" text="" alignment="CENTER" />
+            </StackPane>
+            
+            <VBox spacing="4">
+                <Label fx:id="lblModalTitle" text="Title" styleClass="modal-title" />
+                <Label fx:id="lblModalSubtitle" text="Subtitle" styleClass="modal-subtitle" wrapText="true" />
+            </VBox>
+            
+            <VBox spacing="4">
+                <Label text="Amount" styleClass="field-label-bank" />
+                <TextField fx:id="tfModalAmount" promptText="0.00" styleClass="bank-text-field" />
+            </VBox>
+            
+            <Label fx:id="lblModalError" text="" styleClass="validation-error" visible="false" managed="false" wrapText="true" />
+            
+            <HBox spacing="10">
+                <Button text="Cancel" styleClass="btn-modal-cancel" HBox.hgrow="ALWAYS" maxWidth="Infinity" onAction="#onModalCancel" />
+                <Button fx:id="btnModalConfirm" text="Confirm" HBox.hgrow="ALWAYS" maxWidth="Infinity" onAction="#onModalConfirm" />
+            </HBox>
+        </VBox>
+    </StackPane>
+
+</StackPane>

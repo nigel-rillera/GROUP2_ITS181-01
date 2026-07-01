@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<!--
+    Create Product Form: Uses BorderPane + GridPane.
+    BorderPane organises top (header), center (form), bottom (actions).
+    GridPane aligns labels and fields cleanly.
+-->
+<BorderPane prefHeight="500.0" prefWidth="420.0"
+            stylesheets="/css/styles.css"
+            xmlns="http://javafx.com/javafx/17.0.12"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.gabriel.prod.utilControllers.CreateProductController">
+
+    <!-- TOP: Form header -->
+    <top>
+        <VBox styleClass="header-bar" alignment="CENTER">
+            <padding>
+                <Insets bottom="14" left="16" right="16" top="14" />
+            </padding>
+            <Label text="Create Product" styleClass="header-title" />
+            <Label text="Add a new product to the catalog" styleClass="header-subtitle" />
+        </VBox>
+    </top>
+
+    <!-- CENTER: Image + GridPane form -->
+    <center>
+        <VBox spacing="16" alignment="TOP_CENTER">
+            <padding>
+                <Insets bottom="16" left="24" right="24" top="20" />
+            </padding>
+
+            <!-- Product image thumbnail -->
+            <ImageView fitHeight="120.0" fitWidth="120.0"
+                       pickOnBounds="true" preserveRatio="true">
+                <Image url="@../../../../images/g.gif" />
+            </ImageView>
+
+            <!-- Card wrapper for the form -->
+            <VBox styleClass="card" spacing="12" VBox.vgrow="ALWAYS">
+                <Label text="Product Information" styleClass="section-label" />
+                <Separator />
+
+                <GridPane hgap="12" vgap="12">
+                    <columnConstraints>
+                        <ColumnConstraints minWidth="120" prefWidth="130" />
+                        <ColumnConstraints hgrow="ALWAYS" />
+                    </columnConstraints>
+
+                    <!-- Name -->
+                    <Label text="Name" styleClass="field-label"
+                           GridPane.rowIndex="0" GridPane.columnIndex="0"
+                           GridPane.valignment="CENTER" />
+                    <TextField fx:id="tfName" promptText="Enter product name"
+                               GridPane.rowIndex="0" GridPane.columnIndex="1" />
+
+                    <!-- Description -->
+                    <Label text="Description" styleClass="field-label"
+                           GridPane.rowIndex="1" GridPane.columnIndex="0"
+                           GridPane.valignment="CENTER" />
+                    <TextField fx:id="tfDesc" promptText="Enter description"
+                               GridPane.rowIndex="1" GridPane.columnIndex="1" />
+
+                    <!-- Unit of Measure -->
+                    <Label text="Unit of Measure" styleClass="field-label"
+                           GridPane.rowIndex="2" GridPane.columnIndex="0"
+                           GridPane.valignment="CENTER" />
+                    <ComboBox fx:id="cbUom" prefWidth="200.0" promptText="Select UOM"
+                              GridPane.rowIndex="2" GridPane.columnIndex="1" />
+                </GridPane>
+            </VBox>
+        </VBox>
+    </center>
+
+    <!-- BOTTOM: Navigation buttons -->
+    <bottom>
+        <HBox spacing="10" alignment="CENTER">
+            <padding>
+                <Insets bottom="16" left="24" right="24" top="12" />
+            </padding>
+            <Button fx:id="btnBack" text="← Back"
+                    onAction="#onBack"
+                    styleClass="btn-secondary"
+                    prefWidth="100" />
+            <Button fx:id="btnSubmit" text="✔ Submit"
+                    onAction="#onSubmit"
+                    styleClass="btn-success"
+                    prefWidth="110" />
+            <Button fx:id="btnNext" text="Next →"
+                    onAction="#onNext"
+                    styleClass="btn-primary"
+                    prefWidth="100" />
+        </HBox>
+    </bottom>
+</BorderPane>

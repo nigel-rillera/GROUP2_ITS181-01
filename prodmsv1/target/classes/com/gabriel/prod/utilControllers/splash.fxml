@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<!--
+    splash.fxml  —  BankSys Banking Application Splash / Landing Screen
+    Controller  : com.gabriel.prod.utilControllers.BankSplashController
+    Root layout : StackPane (centers the card both horizontally and vertically)
+    CSS         : /css/app.css  (shared banking stylesheet)
+-->
+
+<StackPane styleClass="bank-root" stylesheets="/css/app.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gabriel.prod.utilControllers.BankSplashController">
+
+    <!--
+        CARD — white rounded container, fixed width ~340px.
+        VBox inside StackPane so StackPane.alignment centers it automatically.
+    -->
+    <VBox maxHeight="-Infinity" maxWidth="380.0" prefWidth="350.0" spacing="0" styleClass="card">
+
+        <padding>
+            <Insets bottom="36" left="32" right="32" top="36" />
+        </padding>
+
+        <!-- ── Icon Chip (48×48, rounded 12px, light-blue bg) ─────────── -->
+        <StackPane maxHeight="48" maxWidth="48" prefHeight="48" prefWidth="48" styleClass="icon-chip">
+            <!--
+                Bank glyph — Unicode "🏦" renders as emoji on most systems.
+                Fallback: a bold "B" styled in brand blue via icon-chip-glyph.
+                We use a Label so JavaFX can style it with CSS.
+            -->
+            <Label style="-fx-font-size: 22px;" styleClass="icon-chip-glyph" text="🏦" />
+        </StackPane>
+
+        <!-- Spacing below icon chip -->
+        <Region prefHeight="20" />
+
+        <!-- ── Title ────────────────────────────────────────────────────── -->
+        <Label styleClass="title-text" text="Welcome to BankSys" wrapText="true" />
+
+        <!-- Spacing between title and subtitle -->
+        <Region prefHeight="8" />
+
+        <!-- ── Subtitle ─────────────────────────────────────────────────── -->
+        <Label prefWidth="276" styleClass="subtitle-text" text="Sign in to your account or create a new one to get started." wrapText="true" />
+
+        <!-- Spacing before buttons (~24px) -->
+        <Region prefHeight="24" />
+
+        <!-- ── Primary Button: Sign in ──────────────────────────────────── -->
+        <Button fx:id="btnSignIn" maxWidth="Infinity" onAction="#onSignIn" styleClass="btn-primary" text="Sign in to existing account" />
+
+        <!-- ── Divider row: thin line + "or" label ──────────────────────── -->
+        <HBox alignment="CENTER" prefHeight="48" spacing="0">
+            <!-- Left line -->
+            <Region styleClass="divider-line" HBox.hgrow="ALWAYS" />
+            <!-- "or" label -->
+            <Label styleClass="divider-or-label" text="or" />
+            <!-- Right line -->
+            <Region styleClass="divider-line" HBox.hgrow="ALWAYS" />
+        </HBox>
+
+        <!-- ── Secondary Button: Create account ─────────────────────────── -->
+        <Button fx:id="btnCreateAccount" maxWidth="Infinity" onAction="#onCreateAccount" styleClass="btn-secondary" text="Create a new account" />
+
+    </VBox>
+
+</StackPane>

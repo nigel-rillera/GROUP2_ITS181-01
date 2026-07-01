@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<!--
+    Update Product Form: BorderPane + GridPane.
+-->
+<BorderPane prefHeight="460.0" prefWidth="420.0"
+            stylesheets="/css/styles.css"
+            xmlns="http://javafx.com/javafx/17.0.2-ea"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.gabriel.prod.utilControllers.UpdateProductController">
+
+    <top>
+        <VBox styleClass="header-bar" alignment="CENTER">
+            <padding>
+                <Insets bottom="14" left="16" right="16" top="14" />
+            </padding>
+            <Label text="Update Product" styleClass="header-title" />
+            <Label text="Modify existing product details" styleClass="header-subtitle" />
+        </VBox>
+    </top>
+
+    <center>
+        <VBox spacing="16" alignment="TOP_CENTER">
+            <padding>
+                <Insets bottom="16" left="24" right="24" top="20" />
+            </padding>
+
+            <ImageView fitHeight="100.0" fitWidth="100.0"
+                       pickOnBounds="true" preserveRatio="true">
+                <Image url="@../../../../images/wink.gif" />
+            </ImageView>
+
+            <VBox styleClass="card" spacing="12">
+                <Label text="Edit Product Information" styleClass="section-label" />
+                <Separator />
+
+                <GridPane hgap="12" vgap="12">
+                    <columnConstraints>
+                        <ColumnConstraints minWidth="120" prefWidth="130" />
+                        <ColumnConstraints hgrow="ALWAYS" />
+                    </columnConstraints>
+
+                    <Label text="Name" styleClass="field-label"
+                           GridPane.rowIndex="0" GridPane.columnIndex="0"
+                           GridPane.valignment="CENTER" />
+                    <TextField fx:id="tfName" promptText="Product name"
+                               GridPane.rowIndex="0" GridPane.columnIndex="1" />
+
+                    <Label text="Description" styleClass="field-label"
+                           GridPane.rowIndex="1" GridPane.columnIndex="0"
+                           GridPane.valignment="CENTER" />
+                    <TextField fx:id="tfDesc" promptText="Description"
+                               GridPane.rowIndex="1" GridPane.columnIndex="1" />
+
+                    <Label text="Unit of Measure" styleClass="field-label"
+                           GridPane.rowIndex="2" GridPane.columnIndex="0"
+                           GridPane.valignment="CENTER" />
+                    <ComboBox fx:id="cbUom" prefWidth="200.0"
+                              GridPane.rowIndex="2" GridPane.columnIndex="1" />
+                </GridPane>
+            </VBox>
+        </VBox>
+    </center>
+
+    <bottom>
+        <HBox spacing="10" alignment="CENTER">
+            <padding>
+                <Insets bottom="16" left="24" right="24" top="12" />
+            </padding>
+            <Button fx:id="btnBack" text="← Back"
+                    onAction="#onBack"
+                    styleClass="btn-secondary"
+                    prefWidth="110" />
+            <Button fx:id="btnSubmit" text="✔ Update"
+                    onAction="#onSubmit"
+                    styleClass="btn-warning"
+                    prefWidth="120" />
+        </HBox>
+    </bottom>
+</BorderPane>

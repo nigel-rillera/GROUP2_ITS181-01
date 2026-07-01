@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<!--
+    Delete Product Form: BorderPane + GridPane.
+    Fields are read-only to confirm before deletion.
+-->
+<BorderPane prefHeight="440.0" prefWidth="420.0"
+            stylesheets="/css/styles.css"
+            xmlns="http://javafx.com/javafx/17.0.2-ea"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.gabriel.prod.utilControllers.DeleteProductController">
+
+    <top>
+        <VBox styleClass="header-bar" alignment="CENTER">
+            <padding>
+                <Insets bottom="14" left="16" right="16" top="14" />
+            </padding>
+            <Label text="Delete Product" styleClass="header-title" />
+            <Label text="Review and confirm deletion" styleClass="header-subtitle" />
+        </VBox>
+    </top>
+
+    <center>
+        <VBox spacing="16" alignment="TOP_CENTER">
+            <padding>
+                <Insets bottom="16" left="24" right="24" top="20" />
+            </padding>
+
+            <ImageView fitHeight="90.0" fitWidth="90.0"
+                       pickOnBounds="true" preserveRatio="true">
+                <Image url="@../../../../images/wink.gif" />
+            </ImageView>
+
+            <!-- Warning card -->
+            <VBox styleClass="card" spacing="12">
+                <Label text="⚠  You are about to delete this product. This action cannot be undone."
+                       styleClass="danger-label"
+                       wrapText="true" />
+                <Separator />
+                <Label text="Product Information (read-only)" styleClass="section-label" />
+
+                <GridPane hgap="12" vgap="12">
+                    <columnConstraints>
+                        <ColumnConstraints minWidth="120" prefWidth="130" />
+                        <ColumnConstraints hgrow="ALWAYS" />
+                    </columnConstraints>
+
+                    <Label text="Name" styleClass="field-label"
+                           GridPane.rowIndex="0" GridPane.columnIndex="0"
+                           GridPane.valignment="CENTER" />
+                    <TextField fx:id="tfName" editable="false"
+                               GridPane.rowIndex="0" GridPane.columnIndex="1" />
+
+                    <Label text="Description" styleClass="field-label"
+                           GridPane.rowIndex="1" GridPane.columnIndex="0"
+                           GridPane.valignment="CENTER" />
+                    <TextField fx:id="tfDesc" editable="false"
+                               GridPane.rowIndex="1" GridPane.columnIndex="1" />
+
+                    <Label text="Unit of Measure" styleClass="field-label"
+                           GridPane.rowIndex="2" GridPane.columnIndex="0"
+                           GridPane.valignment="CENTER" />
+                    <TextField fx:id="tfUom" editable="false"
+                               GridPane.rowIndex="2" GridPane.columnIndex="1" />
+                </GridPane>
+            </VBox>
+        </VBox>
+    </center>
+
+    <bottom>
+        <HBox spacing="10" alignment="CENTER">
+            <padding>
+                <Insets bottom="16" left="24" right="24" top="12" />
+            </padding>
+            <Button fx:id="btnBack" text="← Cancel"
+                    onAction="#onBack"
+                    styleClass="btn-secondary"
+                    prefWidth="110" />
+            <Button fx:id="btnSubmit" text="✕ Confirm Delete"
+                    onAction="#onSubmit"
+                    styleClass="btn-danger"
+                    prefWidth="140" />
+        </HBox>
+    </bottom>
+</BorderPane>

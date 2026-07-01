@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<!--
+    login.fxml  —  BankSys Login Screen
+    Controller  : com.gabriel.prod.utilControllers.LoginController
+    Root layout : StackPane (centers the card, same pattern as other screens)
+    CSS         : /css/app.css
+
+    Tab switching (Customer ↔ Admin) is handled entirely in LoginController:
+      - Icon chip style class
+      - Subtitle label text
+      - Customer/Admin field section visibility (setVisible + setManaged)
+      - Sign-in button style class + label
+    Nothing is dynamically rebuilt — two VBox sections are pre-built and
+    shown/hidden via setManaged()/setVisible().
+-->
+
+<StackPane styleClass="bank-root" stylesheets="/css/app.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gabriel.prod.utilControllers.LoginController">
+
+    <!-- CARD — white rounded container, ~340px wide -->
+    <VBox maxHeight="-Infinity" maxWidth="500.0" prefHeight="410.0" prefWidth="400.0" spacing="0" styleClass="card">
+
+        <padding>
+            <Insets bottom="28" left="28" right="28" top="32" />
+        </padding>
+
+        <!-- ── Role icon chip (44×44) ──────────────────────────────────── -->
+        <!--
+            fx:id on the StackPane so the controller can swap its styleClass.
+            The inner Label glyph also gets its styleClass swapped by the controller.
+        -->
+        <StackPane fx:id="iconChip" maxHeight="44" maxWidth="44" prefHeight="44" prefWidth="44" styleClass="login-icon-chip-customer">
+            <Label fx:id="iconGlyph" style="-fx-font-size: 20px;" styleClass="login-icon-glyph-customer" text="👤" />
+        </StackPane>
+
+        <Region prefHeight="14" />
+
+        <!-- ── Title ─────────────────────────────────────────────────────── -->
+        <Label styleClass="success-title" text="Sign in" wrapText="false" />
+
+        <Region prefHeight="4" />
+
+        <!-- ── Subtitle (changes with tab selection) ──────────────────────── -->
+        <Label fx:id="lblSubtitle" maxWidth="Infinity" styleClass="subtitle-text" text="Sign in to your customer account to continue." wrapText="true" />
+
+        <Region prefHeight="18" />
+
+        <!-- ── Segmented tab toggle ───────────────────────────────────────── -->
+        <!--
+            HBox acts as the gray pill container (.tab-toggle-bar).
+            Each ToggleButton gets .tab-toggle-btn (base/inactive style).
+            The controller swaps styles to .tab-toggle-btn-active-customer /
+            .tab-toggle-btn-active-admin for the selected tab.
+        -->
+        <HBox fillHeight="true" styleClass="tab-toggle-bar">
+
+            <ToggleButton fx:id="tabCustomer" maxWidth="Infinity" onAction="#onTabCustomer" styleClass="tab-toggle-btn-active-customer" text="👤  Customer" HBox.hgrow="ALWAYS" />
+
+            <ToggleButton fx:id="tabAdmin" maxWidth="Infinity" onAction="#onTabAdmin" styleClass="tab-toggle-btn" text="🛡  Admin" HBox.hgrow="ALWAYS" />
+
+        </HBox>
+
+        <Region prefHeight="18" />
+
+        <!-- ── Customer fields section ───────────────────────────────────── -->
+        <!-- Visible by default; hidden when Admin tab is active -->
+        <VBox fx:id="customerFields" managed="true" spacing="0" visible="true">
+
+            <Label styleClass="field-label-bank" text="Account number" />
+            <Region prefHeight="5" />
+            <TextField fx:id="tfAccountNumber" maxWidth="Infinity" promptText="e.g. ACC-20240001" styleClass="bank-text-field" />
+
+            <Region prefHeight="14" />
+
+            <Label styleClass="field-label-bank" text="Password" />
+            <Region prefHeight="5" />
+            <PasswordField fx:id="pfCustomerPassword" maxWidth="Infinity" promptText="Enter your password" styleClass="bank-text-field" />
+
+        </VBox>
+
+        <!-- ── Admin fields section ──────────────────────────────────────── -->
+        <!-- Hidden by default; shown when Admin tab is active -->
+        <VBox fx:id="adminFields" managed="false" spacing="0" visible="false">
+
+            <Label styleClass="field-label-bank" text="Admin ID" />
+            <Region prefHeight="5" />
+            <TextField fx:id="tfAdminId" maxWidth="Infinity" promptText="e.g. ADMIN-001" styleClass="bank-text-field" />
+
+            <Region prefHeight="14" />
+
+            <Label styleClass="field-label-bank" text="Password" />
+            <Region prefHeight="5" />
+            <PasswordField fx:id="pfAdminPassword" maxWidth="Infinity" promptText="Enter admin password" styleClass="bank-text-field" />
+
+        </VBox>
+
+        <!-- Spacing before buttons -->
+        <Region prefHeight="18" />
+
+        <!-- ── Inline validation error ────────────────────────────────────── -->
+        <Label fx:id="lblError" managed="false" maxWidth="Infinity" styleClass="validation-error" text="" visible="false" wrapText="true" />
+
+        <!-- ── Sign-in button (label + style swapped by controller) ────────── -->
+        <Button fx:id="btnSignIn" maxWidth="Infinity" onAction="#onSignIn" styleClass="btn-signin-customer" text="Sign in as Customer" />
+
+        <Region prefHeight="8" />
+
+        <!-- ── Back to welcome link ───────────────────────────────────────── -->
+        <Button fx:id="btnBackToWelcome" maxWidth="Infinity" onAction="#onBackToWelcome" styleClass="btn-back-link" text="←  Back to welcome" />
+
+    </VBox>
+
+</StackPane>

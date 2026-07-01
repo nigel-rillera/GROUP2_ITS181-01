@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<!--
+    success.fxml  —  BankSys Account Created Confirmation Screen
+    Controller  : com.gabriel.prod.utilControllers.SuccessController
+    Root layout : StackPane (centers the card)
+    CSS         : /css/app.css
+
+    NOTE: Dynamic content (account number, owner name, role badge) is
+    populated entirely by SuccessController.setAccount(account) —
+    no values are hardcoded in this FXML.
+-->
+<StackPane
+        styleClass="bank-root"
+        stylesheets="/css/app.css"
+        xmlns="http://javafx.com/javafx/17.0.2-ea"
+        xmlns:fx="http://javafx.com/fxml/1"
+        fx:controller="com.gabriel.prod.utilControllers.SuccessController">
+
+    <!--
+        CARD — white rounded container, ~340px wide, center-aligned content.
+    -->
+    <VBox
+            styleClass="card"
+            prefWidth="340"
+            maxWidth="340"
+            maxHeight="-Infinity"
+            alignment="CENTER"
+            spacing="0">
+
+        <padding>
+            <Insets top="36" right="28" bottom="36" left="28" />
+        </padding>
+
+        <!-- ── Green success circle chip (58×58) ──────────────────────── -->
+        <StackPane
+                styleClass="success-chip"
+                prefWidth="58"
+                prefHeight="58"
+                maxWidth="58"
+                maxHeight="58">
+            <Label
+                    text="✓"
+                    styleClass="success-chip-glyph" />
+        </StackPane>
+
+        <Region prefHeight="18" />
+
+        <!-- ── "Account created" title ─────────────────────────────────── -->
+        <Label
+                text="Account created"
+                styleClass="success-title"
+                wrapText="true"
+                maxWidth="Infinity" />
+
+        <Region prefHeight="10" />
+
+        <!-- ── Subtitle ───────────────────────────────────────────────── -->
+        <Label
+                text="The account has been registered. Use the details below to sign in."
+                styleClass="subtitle-text"
+                wrapText="true"
+                maxWidth="Infinity"
+                alignment="CENTER" />
+
+        <Region prefHeight="20" />
+
+        <!-- ── Account pill ───────────────────────────────────────────── -->
+        <HBox
+                fx:id="accountPill"
+                styleClass="account-pill"
+                alignment="CENTER_LEFT"
+                spacing="12">
+
+            <padding>
+                <Insets top="11" right="14" bottom="11" left="14" />
+            </padding>
+
+            <!-- ID badge icon -->
+            <Label
+                    text="🪪"
+                    styleClass="account-pill-icon" />
+
+            <!-- Right side: account number + badge on row 1, owner name on row 2 -->
+            <VBox spacing="3" HBox.hgrow="ALWAYS">
+
+                <!-- Row 1: account number + role badge pill (inline HBox) -->
+                <HBox alignment="CENTER_LEFT" spacing="8">
+                    <Label
+                            fx:id="lblAccountNumber"
+                            text=""
+                            styleClass="account-number-text" />
+                    <!-- Role badge — style class swapped at runtime by controller -->
+                    <Label
+                            fx:id="lblBadge"
+                            text=""
+                            styleClass="badge-customer" />
+                </HBox>
+
+                <!-- Row 2: owner name -->
+                <Label
+                        fx:id="lblOwnerName"
+                        text=""
+                        styleClass="account-owner-text" />
+
+            </VBox>
+        </HBox>
+
+        <Region prefHeight="20" />
+
+        <!-- ── "Go to sign in" primary button ─────────────────────────── -->
+        <Button
+                fx:id="btnGoToSignIn"
+                text="⇥  Go to sign in"
+                styleClass="btn-primary"
+                onAction="#onGoToSignIn"
+                maxWidth="Infinity" />
+
+    </VBox>
+
+</StackPane>

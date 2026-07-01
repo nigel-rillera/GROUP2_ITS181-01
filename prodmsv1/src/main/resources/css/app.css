@@ -1,0 +1,797 @@
+/* ============================================================
+   BankSys Banking Application – Shared Stylesheet (app.css)
+   Design: Modern minimal banking UI — Material/FluentUI inspired
+   Color palette:
+     Background:  #F4F6FB  (light blue-gray)
+     Card:        #FFFFFF
+     Primary:     #3A7BFD  (blue)
+     Text dark:   #1A2340
+     Text muted:  #6B7280
+     Border:      #E5E7EB
+     Divider:     #9CA3AF
+   ============================================================ */
+
+/* ---------- Root / Window Background ---------- */
+.bank-root {
+    -fx-background-color: #F4F6FB;
+    -fx-font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    -fx-font-size: 13px;
+}
+
+/* ---------- Card ----------
+   White rounded card, centered on the window.
+   Used as the main content container on the splash screen.
+   Padding: ~36px top/bottom, 32px left/right  (approx. in JavaFX units)
+*/
+.card {
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 14;
+    -fx-border-color: #E5E7EB;
+    -fx-border-radius: 14;
+    -fx-border-width: 0.5;
+    -fx-effect: dropshadow(gaussian, rgba(58,123,253,0.07), 24, 0, 0, 6);
+}
+
+/* ---------- Icon Chip ----------
+   48x48 rounded square used to hold the bank icon glyph.
+*/
+.icon-chip {
+    -fx-background-color: #EAF0FF;
+    -fx-background-radius: 12;
+}
+
+.icon-chip-glyph {
+    -fx-text-fill: #3A7BFD;
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+}
+
+/* ---------- Title Text ---------- */
+.title-text {
+    -fx-text-fill: #1A2340;
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+}
+
+/* ---------- Subtitle Text ---------- */
+.subtitle-text {
+    -fx-text-fill: #6B7280;
+    -fx-font-size: 13px;
+    -fx-wrap-text: true;
+}
+
+/* ---------- Primary Button ----------
+   Solid blue fill, white text, full-width, 42px height.
+*/
+.btn-primary {
+    -fx-background-color: #3A7BFD;
+    -fx-text-fill: white;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-border-width: 0;
+    -fx-cursor: hand;
+    -fx-pref-height: 42;
+    -fx-max-width: Infinity;
+}
+
+.btn-primary:hover {
+    -fx-background-color: #2563EB;
+    -fx-effect: dropshadow(gaussian, rgba(58,123,253,0.35), 10, 0, 0, 3);
+}
+
+.btn-primary:pressed {
+    -fx-background-color: #1D4ED8;
+    -fx-effect: none;
+}
+
+/* ---------- Secondary Button ----------
+   White background, blue border + blue text, full-width, 42px height.
+*/
+.btn-secondary {
+    -fx-background-color: #FFFFFF;
+    -fx-text-fill: #3A7BFD;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 8;
+    -fx-border-color: #3A7BFD;
+    -fx-border-radius: 8;
+    -fx-border-width: 0.5;
+    -fx-cursor: hand;
+    -fx-pref-height: 42;
+    -fx-max-width: Infinity;
+}
+
+.btn-secondary:hover {
+    -fx-background-color: #EAF0FF;
+    -fx-effect: dropshadow(gaussian, rgba(58,123,253,0.15), 6, 0, 0, 2);
+}
+
+.btn-secondary:pressed {
+    -fx-background-color: #DBEAFE;
+    -fx-effect: none;
+}
+
+/* ---------- Divider / "or" row ---------- */
+.divider-line {
+    -fx-background-color: #E5E7EB;
+    -fx-pref-height: 1;
+    -fx-max-height: 1;
+}
+
+.divider-or-label {
+    -fx-text-fill: #9CA3AF;
+    -fx-font-size: 11px;
+    -fx-padding: 0 8 0 8;
+}
+
+/* ============================================================
+   Create Account Screen
+   ============================================================ */
+
+/* ── Card header: back-arrow row ─────────────────────────── */
+.card-header-title {
+    -fx-text-fill: #1A2340;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+
+.card-header-subtitle {
+    -fx-text-fill: #6B7280;
+    -fx-font-size: 12px;
+}
+
+/* Back-arrow ghost button — no bg, no border, muted gray glyph */
+.btn-back {
+    -fx-background-color: #F4F6FB;
+    -fx-text-fill: #6B7280;
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-border-color: #E5E7EB;
+    -fx-border-width: 0.5;
+    -fx-cursor: hand;
+    -fx-pref-width: 34;
+    -fx-pref-height: 34;
+    -fx-padding: 0;
+}
+
+.btn-back:hover {
+    -fx-background-color: #E5E7EB;
+}
+
+.btn-back:pressed {
+    -fx-background-color: #D1D5DB;
+}
+
+/* ── Field labels ────────────────────────────────────────── */
+.field-label-bank {
+    -fx-text-fill: #6B7280;
+    -fx-font-size: 12px;
+    -fx-font-weight: normal;
+}
+
+/* ── Text inputs ─────────────────────────────────────────── */
+.bank-text-field {
+    -fx-background-color: #FAFAFA;
+    -fx-background-radius: 6;
+    -fx-border-color: #D1D5DB;
+    -fx-border-radius: 6;
+    -fx-border-width: 0.5;
+    -fx-pref-height: 37;
+    -fx-font-size: 13px;
+    -fx-text-fill: #1A2340;
+    -fx-prompt-text-fill: #9CA3AF;
+}
+
+.bank-text-field:focused {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #3A7BFD;
+    -fx-border-width: 1;
+    -fx-effect: dropshadow(gaussian, rgba(58,123,253,0.18), 6, 0, 0, 0);
+}
+
+/* ── ComboBox ────────────────────────────────────────────── */
+.bank-combo-box {
+    -fx-background-color: #FAFAFA;
+    -fx-background-radius: 6;
+    -fx-border-color: #D1D5DB;
+    -fx-border-radius: 6;
+    -fx-border-width: 0.5;
+    -fx-pref-height: 37;
+    -fx-font-size: 13px;
+    -fx-text-fill: #1A2340;
+}
+
+.bank-combo-box:focused {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #3A7BFD;
+    -fx-border-width: 1;
+    -fx-effect: dropshadow(gaussian, rgba(58,123,253,0.18), 6, 0, 0, 0);
+}
+
+.bank-combo-box .list-cell {
+    -fx-text-fill: #1A2340;
+    -fx-font-size: 13px;
+    -fx-background-color: #FAFAFA;
+}
+
+/* ── Cancel ghost button ─────────────────────────────────── */
+.btn-cancel {
+    -fx-background-color: transparent;
+    -fx-text-fill: #6B7280;
+    -fx-font-size: 13px;
+    -fx-font-weight: normal;
+    -fx-background-radius: 8;
+    -fx-border-width: 0;
+    -fx-cursor: hand;
+    -fx-pref-height: 36;
+    -fx-max-width: Infinity;
+}
+
+.btn-cancel:hover {
+    -fx-text-fill: #374151;
+    -fx-background-color: rgba(0,0,0,0.04);
+    -fx-background-radius: 8;
+}
+
+.btn-cancel:pressed {
+    -fx-background-color: rgba(0,0,0,0.08);
+}
+
+/* ── Validation error label ──────────────────────────────── */
+.validation-error {
+    -fx-text-fill: #C0392B;
+    -fx-font-size: 12px;
+    -fx-wrap-text: true;
+}
+
+/* ============================================================
+   Success / Confirmation Screen
+   ============================================================ */
+
+/* ── Green success circle chip ───────────────────────────── */
+.success-chip {
+    -fx-background-color: #E8F8EF;
+    -fx-background-radius: 50;
+}
+
+.success-chip-glyph {
+    -fx-text-fill: #1A7A4A;
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+}
+
+/* ── Success title override (slightly smaller than splash title) */
+.success-title {
+    -fx-text-fill: #1A2340;
+    -fx-font-size: 19px;
+    -fx-font-weight: bold;
+    -fx-alignment: CENTER;
+}
+
+/* ── Account pill container ──────────────────────────────── */
+.account-pill {
+    -fx-background-color: #F4F6FB;
+    -fx-background-radius: 8;
+    -fx-border-color: #E5E7EB;
+    -fx-border-radius: 8;
+    -fx-border-width: 0.5;
+}
+
+/* Icon inside the pill */
+.account-pill-icon {
+    -fx-text-fill: #3A7BFD;
+    -fx-font-size: 18px;
+}
+
+/* Account number text inside pill */
+.account-number-text {
+    -fx-text-fill: #1A2340;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+}
+
+/* Owner name text inside pill */
+.account-owner-text {
+    -fx-text-fill: #6B7280;
+    -fx-font-size: 11px;
+}
+
+/* ── Role badges ─────────────────────────────────────────── */
+.badge-customer {
+    -fx-background-color: #E1F5EE;
+    -fx-text-fill: #0F6E56;
+    -fx-font-size: 10px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 50;
+    -fx-padding: 2 7 2 7;
+}
+
+.badge-admin {
+    -fx-background-color: #EEEDFE;
+    -fx-text-fill: #534AB7;
+    -fx-font-size: 10px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 50;
+    -fx-padding: 2 7 2 7;
+}
+
+
+/* ============================================================
+   Login Screen
+   ============================================================ */
+
+/* ── Role icon chip (44x44, ~11px radius) ────────────────── */
+.login-icon-chip-customer {
+    -fx-background-color: #E1F5EE;
+    -fx-background-radius: 11;
+}
+
+.login-icon-glyph-customer {
+    -fx-text-fill: #0F6E56;
+    -fx-font-size: 20px;
+}
+
+.login-icon-chip-admin {
+    -fx-background-color: #EEEDFE;
+    -fx-background-radius: 11;
+}
+
+.login-icon-glyph-admin {
+    -fx-text-fill: #534AB7;
+    -fx-font-size: 20px;
+}
+
+/* ── Segmented tab toggle container ──────────────────────── */
+.tab-toggle-bar {
+    -fx-background-color: #F0F2F7;
+    -fx-background-radius: 8;
+    -fx-padding: 3;
+    -fx-spacing: 3;
+}
+
+.tab-toggle-btn {
+    -fx-background-color: transparent;
+    -fx-text-fill: #6B7280;
+    -fx-font-size: 13px;
+    -fx-font-weight: normal;
+    -fx-background-radius: 6;
+    -fx-border-width: 0;
+    -fx-cursor: hand;
+    -fx-pref-height: 32;
+}
+
+.tab-toggle-btn:hover {
+    -fx-background-color: rgba(0,0,0,0.04);
+}
+
+.tab-toggle-btn-active-customer {
+    -fx-background-color: #FFFFFF;
+    -fx-text-fill: #3A7BFD;
+    -fx-font-weight: bold;
+    -fx-font-size: 13px;
+    -fx-background-radius: 6;
+    -fx-border-color: #E5E7EB;
+    -fx-border-radius: 6;
+    -fx-border-width: 0.5;
+    -fx-cursor: hand;
+    -fx-pref-height: 32;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.06), 4, 0, 0, 1);
+}
+
+.tab-toggle-btn-active-admin {
+    -fx-background-color: #FFFFFF;
+    -fx-text-fill: #534AB7;
+    -fx-font-weight: bold;
+    -fx-font-size: 13px;
+    -fx-background-radius: 6;
+    -fx-border-color: #E5E7EB;
+    -fx-border-radius: 6;
+    -fx-border-width: 0.5;
+    -fx-cursor: hand;
+    -fx-pref-height: 32;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.06), 4, 0, 0, 1);
+}
+
+/* ── Sign-in buttons ─────────────────────────────────────── */
+.btn-signin-customer {
+    -fx-background-color: #3A7BFD;
+    -fx-text-fill: white;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 6;
+    -fx-border-radius: 6;
+    -fx-border-width: 0;
+    -fx-cursor: hand;
+    -fx-pref-height: 41;
+    -fx-max-width: Infinity;
+    -fx-alignment: center-left;
+    -fx-padding: 0 0 0 35;
+}
+
+.btn-signin-customer:hover {
+    -fx-background-color: #2563EB;
+    -fx-effect: dropshadow(gaussian, rgba(58,123,253,0.35), 10, 0, 0, 3);
+}
+
+.btn-signin-customer:pressed {
+    -fx-background-color: #1D4ED8;
+    -fx-effect: none;
+}
+
+.btn-signin-admin {
+    -fx-background-color: #534AB7;
+    -fx-text-fill: white;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 6;
+    -fx-border-radius: 6;
+    -fx-border-width: 0;
+    -fx-cursor: hand;
+    -fx-pref-height: 41;
+    -fx-max-width: Infinity;
+    -fx-alignment: center-left;
+    -fx-padding: 0 0 0 35;
+}
+
+.btn-signin-admin:hover {
+    -fx-background-color: #4338A0;
+    -fx-effect: dropshadow(gaussian, rgba(83,74,183,0.35), 10, 0, 0, 3);
+}
+
+.btn-signin-admin:pressed {
+    -fx-background-color: #352D82;
+    -fx-effect: none;
+}
+
+/* ── Back to welcome link button ─────────────────────────── */
+.btn-back-link {
+    -fx-background-color: transparent;
+    -fx-text-fill: #6B7280;
+    -fx-font-size: 12px;
+    -fx-font-weight: normal;
+    -fx-border-width: 0;
+    -fx-cursor: hand;
+    -fx-pref-height: 36;
+    -fx-max-width: Infinity;
+    -fx-background-radius: 6;
+}
+
+.btn-back-link:hover {
+    -fx-text-fill: #374151;
+    -fx-background-color: rgba(0,0,0,0.03);
+    -fx-background-radius: 6;
+}
+
+.btn-back-link:pressed {
+    -fx-background-color: rgba(0,0,0,0.07);
+}
+
+/* ============================================================
+   Customer Dashboard & Transaction History
+   ============================================================ */
+
+/* -- Sidebar Layout ------------------------------------------ */
+.sidebar {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #E5E7EB;
+    -fx-border-width: 0 0.5 0 0;
+}
+
+.sidebar-profile-section {
+    -fx-padding: 18;
+    -fx-border-color: #E5E7EB;
+    -fx-border-width: 0 0 0.5 0;
+}
+
+.sidebar-welcome-label {
+    -fx-text-fill: #9CA3AF;
+    -fx-font-size: 11px;
+}
+
+.sidebar-owner-label {
+    -fx-text-fill: #1A2340;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+.sidebar-account-label {
+    -fx-text-fill: #6B7280;
+    -fx-font-size: 11px;
+}
+
+/* -- Sidebar Nav Buttons ------------------------------------- */
+.sidebar-nav-section {
+    -fx-padding: 16 12 16 12;
+}
+
+.btn-sidebar-nav {
+    -fx-background-color: transparent;
+    -fx-text-fill: #6B7280;
+    -fx-font-size: 13px;
+    -fx-font-weight: normal;
+    -fx-background-radius: 8;
+    -fx-padding: 10 12 10 12;
+    -fx-alignment: center-left;
+    -fx-cursor: hand;
+}
+
+.btn-sidebar-nav:hover {
+    -fx-background-color: rgba(0,0,0,0.04);
+}
+
+.btn-sidebar-nav-active {
+    -fx-background-color: #EAF0FF;
+    -fx-text-fill: #3A7BFD;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 8;
+    -fx-padding: 10 12 10 12;
+    -fx-alignment: center-left;
+    -fx-cursor: hand;
+}
+
+.btn-sidebar-logout {
+    -fx-background-color: transparent;
+    -fx-text-fill: #C0392B;
+    -fx-font-size: 13px;
+    -fx-font-weight: normal;
+    -fx-background-radius: 8;
+    -fx-padding: 10 12 10 12;
+    -fx-alignment: center-left;
+    -fx-cursor: hand;
+}
+
+.btn-sidebar-logout:hover {
+    -fx-background-color: #FDEEE8;
+}
+
+/* -- Main Content Area --------------------------------------- */
+.dashboard-main-content {
+    -fx-background-color: #F4F6FB;
+}
+
+.dashboard-scroll-pane {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+.dashboard-scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.dashboard-header-title {
+    -fx-text-fill: #1A2340;
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+}
+
+.dashboard-header-subtitle {
+    -fx-text-fill: #6B7280;
+    -fx-font-size: 12px;
+}
+
+/* -- Balance Card -------------------------------------------- */
+.balance-card {
+    -fx-background-color: linear-gradient(to bottom right, #3A7BFD, #2C5FD9);
+    -fx-background-radius: 14;
+    -fx-padding: 22;
+}
+
+.balance-card-label {
+    -fx-text-fill: white;
+    -fx-font-size: 12px;
+    -fx-opacity: 0.8;
+}
+
+.balance-card-amount {
+    -fx-text-fill: white;
+    -fx-font-size: 30px;
+    -fx-font-weight: bold;
+}
+
+.balance-card-bottom {
+    -fx-text-fill: white;
+    -fx-font-size: 11px;
+    -fx-opacity: 0.7;
+}
+
+/* -- Action Cards (Deposit/Withdraw) ------------------------- */
+.action-card {
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 12;
+    -fx-border-color: #E5E7EB;
+    -fx-border-radius: 12;
+    -fx-border-width: 0.5;
+    -fx-padding: 18;
+    -fx-cursor: hand;
+}
+
+.action-card:hover {
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 8, 0, 0, 4);
+}
+
+.action-icon-chip-deposit {
+    -fx-background-color: #E1F5EE;
+    -fx-background-radius: 9;
+}
+
+.action-icon-glyph-deposit {
+    -fx-text-fill: #0F6E56;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+
+.action-icon-chip-withdraw {
+    -fx-background-color: #FDEEE8;
+    -fx-background-radius: 9;
+}
+
+.action-icon-glyph-withdraw {
+    -fx-text-fill: #C0392B;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+
+.action-card-title {
+    -fx-text-fill: #1A2340;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+}
+
+.action-card-subtitle {
+    -fx-text-fill: #6B7280;
+    -fx-font-size: 11px;
+}
+
+/* -- Recent Activity / Transaction List Card ----------------- */
+.activity-card {
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 12;
+    -fx-border-color: #E5E7EB;
+    -fx-border-radius: 12;
+    -fx-border-width: 0.5;
+    -fx-padding: 18 20 18 20;
+}
+
+.activity-header-title {
+    -fx-text-fill: #1A2340;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+}
+
+.btn-view-all {
+    -fx-background-color: transparent;
+    -fx-text-fill: #3A7BFD;
+    -fx-font-size: 11.5px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+    -fx-padding: 0;
+}
+
+.btn-view-all:hover {
+    -fx-text-fill: #2563EB;
+}
+
+/* Transaction Row */
+.transaction-row {
+    -fx-padding: 8 0 8 0;
+    -fx-border-color: #E5E7EB;
+    -fx-border-width: 0 0 0.5 0;
+}
+
+.transaction-icon-chip-deposit {
+    -fx-background-color: #E1F5EE;
+    -fx-background-radius: 8;
+}
+
+.transaction-icon-glyph-deposit {
+    -fx-text-fill: #0F6E56;
+    -fx-font-size: 14px;
+}
+
+.transaction-icon-chip-withdraw {
+    -fx-background-color: #FDEEE8;
+    -fx-background-radius: 8;
+}
+
+.transaction-icon-glyph-withdraw {
+    -fx-text-fill: #C0392B;
+    -fx-font-size: 14px;
+}
+
+.transaction-type-label {
+    -fx-text-fill: #1A2340;
+    -fx-font-size: 12.5px;
+}
+
+.transaction-date-label {
+    -fx-text-fill: #9CA3AF;
+    -fx-font-size: 10.5px;
+}
+
+.transaction-amount-deposit {
+    -fx-text-fill: #0F6E56;
+    -fx-font-size: 12.5px;
+    -fx-font-weight: bold;
+}
+
+.transaction-amount-withdraw {
+    -fx-text-fill: #C0392B;
+    -fx-font-size: 12.5px;
+    -fx-font-weight: bold;
+}
+
+.transaction-empty-label {
+    -fx-text-fill: #9CA3AF;
+    -fx-font-size: 13px;
+    -fx-padding: 20;
+}
+
+/* -- Modal Overlay ------------------------------------------- */
+.modal-overlay {
+    -fx-background-color: rgba(26, 35, 64, 0.4);
+}
+
+.modal-card {
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 16;
+    -fx-padding: 24;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 20, 0, 0, 10);
+}
+
+.modal-title {
+    -fx-text-fill: #1A2340;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+
+.modal-subtitle {
+    -fx-text-fill: #6B7280;
+    -fx-font-size: 12px;
+}
+
+.btn-modal-deposit {
+    -fx-background-color: #0F6E56;
+    -fx-text-fill: white;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 8;
+    -fx-cursor: hand;
+    -fx-pref-height: 38;
+}
+
+.btn-modal-deposit:hover {
+    -fx-background-color: #0B5341;
+}
+
+.btn-modal-withdraw {
+    -fx-background-color: #C0392B;
+    -fx-text-fill: white;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 8;
+    -fx-cursor: hand;
+    -fx-pref-height: 38;
+}
+
+.btn-modal-withdraw:hover {
+    -fx-background-color: #962D22;
+}
+
+.btn-modal-cancel {
+    -fx-background-color: #F3F4F6;
+    -fx-text-fill: #4B5563;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 8;
+    -fx-cursor: hand;
+    -fx-pref-height: 38;
+}
+
+.btn-modal-cancel:hover {
+    -fx-background-color: #E5E7EB;
+}

@@ -1,56 +1,54 @@
 package com.gabriel.prod.model;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
-/**
- * TransactionStore — simple in-memory repository for Transaction objects.
- * Stores all transactions across the app session.
- */
 public class TransactionStore {
 
-    private static final List<Transaction> transactions = new ArrayList<>();
-
-    private TransactionStore() {}
-
-    /**
-     * Adds a new transaction to the store (adds to the beginning so newest is first).
-     * @param transaction the Transaction to persist; must not be null
-     */
-    public static void addTransaction(Transaction transaction) {
-        if (transaction == null) throw new IllegalArgumentException("transaction must not be null");
-        // Insert at index 0 so it naturally sorts newest-first for the UI
-        transactions.add(0, transaction);
-    }
-
-    /**
-     * Retrieves all transactions for a specific account.
-     * @param accountNumber the account number
-     * @return list of transactions for that account, newest first
-     */
-    public static List<Transaction> getTransactionsByAccount(String accountNumber) {
-        return transactions.stream()
-                .filter(t -> t.getAccountNumber().equalsIgnoreCase(accountNumber))
-                .collect(Collectors.toList());
-    }
-
-    /**
-     * Retrieves the most recent N transactions for an account.
-     * @param accountNumber the account number
-     * @param limit maximum number of transactions to return
-     * @return list of up to N most recent transactions
-     */
-    public static List<Transaction> getRecentTransactions(String accountNumber, int limit) {
-        List<Transaction> accountTransactions = getTransactionsByAccount(accountNumber);
-        if (accountTransactions.size() <= limit) {
-            return accountTransactions;
+    public static void addTransaction(Transaction t) {
+        try {
+            Connection conn = DatabaseConnection.getConnection();
+            if (conn == null) return;
+            PreparedStatement ps = conn.prepareStatement(
+                "INSERT INTO transactions " +
+                "(account_number, type, amount, date) VALUES (?, ?, ?, ?)");
+            ps.setString(1, t.getAccountNumber());
+            ps.setString(2, t.getType());
+            ps.setDouble(3, t.getAmount());
+            ps.setString(4, t.getDate());
+            ps.executeUpdate();
+        } catch (Exception e) {
+            System.err.println("Error adding transaction: " + e.getMessage());
         }
-        return accountTransactions.subList(0, limit);
     }
-    
-    public static void clear() {
-        transactions.clear();
+
+    public static List<Transaction> getTransactionsByAccount(
+            String accountNumber) {
+        List<Transaction> list = new ArrayList<>();
+        try {
+            Connection conn = DatabaseConnection.getConnection();
+            if (conn == null) return list;
+            PreparedStatement ps = conn.prepareStatement(
+                "SELECT * FROM transactions WHERE account_number=?" +
+                " ORDER BY id DESC");
+            ps.setString(1, accountNumber);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Transaction t = new Transaction(
+                    rs.getString("type"),
+                    rs.getDouble("amount"),
+                    rs.getString("date"),
+                    rs.getString("account_number")
+                );
+                list.add(t);
+            }
+        } catch (Exception e) {
+            System.err.println(
+                "Error loading transactions: " + e.getMessage());
+        }
+        return list;
     }
 }

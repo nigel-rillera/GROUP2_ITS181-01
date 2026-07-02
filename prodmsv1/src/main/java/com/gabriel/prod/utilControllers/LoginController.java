@@ -276,24 +276,21 @@ public class LoginController implements Initializable {
             return;
         }
 
-        // Success — navigate to Admin Dashboard (not built yet)
+        // Success — navigate to Admin Dashboard
         System.out.println("Navigate to admin dashboard for: " + found.getAccountNumber());
-        // TODO: load admin_dashboard.fxml here and pass the Account
-        // Example (uncomment when AdminDashboardController is ready):
-        //
-        // try {
-        //     FXMLLoader loader = new FXMLLoader(
-        //             LoginController.class.getResource("admin_dashboard.fxml"));
-        //     Parent root = loader.load();
-        //     AdminDashboardController dashCtrl = loader.getController();
-        //     dashCtrl.setAccount(found);
-        //     Stage stage = getStage(event);
-        //     stage.setTitle("BankSys – Admin Dashboard");
-        //     stage.getScene().setRoot(root);
-        // } catch (Exception ex) {
-        //     System.err.println("LoginController: error opening admin dashboard – " + ex.getMessage());
-        //     ex.printStackTrace();
-        // }
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    LoginController.class.getResource("admin_dashboard.fxml"));
+            Parent root = loader.load();
+            AdminController dashCtrl = loader.getController();
+            dashCtrl.setAccount(found);
+            Stage stage = getStage(event);
+            stage.setTitle("BankSys \u2013 Admin Dashboard");
+            stage.getScene().setRoot(root);
+        } catch (Exception ex) {
+            System.err.println("LoginController: error opening admin dashboard \u2013 " + ex.getMessage());
+            ex.printStackTrace();
+        }
     }
 
     /**
@@ -305,12 +302,9 @@ public class LoginController implements Initializable {
      * @return the matching Account, or null if not found
      */
     private Account findAccount(String accountNumber, String accountType) {
-        List<Account> accounts = AccountStore.getAccounts();
-        for (Account a : accounts) {
-            if (a.getAccountNumber().equalsIgnoreCase(accountNumber)
-                    && a.getAccountType().equalsIgnoreCase(accountType)) {
-                return a;
-            }
+        Account a = AccountStore.findByAccountNumber(accountNumber);
+        if (a != null && a.getAccountType().equalsIgnoreCase(accountType)) {
+            return a;
         }
         return null;
     }

@@ -1,6 +1,7 @@
 package com.gabriel.prod.utilControllers;
 
 import com.gabriel.prod.model.Account;
+import com.gabriel.prod.model.AccountStore;
 import com.gabriel.prod.model.Transaction;
 import com.gabriel.prod.model.TransactionStore;
 import javafx.event.ActionEvent;
@@ -80,7 +81,8 @@ public class CustomerController implements Initializable {
     private void refreshTransactionList() {
         transactionList.getChildren().clear();
         
-        List<Transaction> recent = TransactionStore.getRecentTransactions(account.getAccountNumber(), 6);
+        java.util.List<Transaction> all = TransactionStore.getTransactionsByAccount(account.getAccountNumber());
+        java.util.List<Transaction> recent = all.size() > 6 ? all.subList(0, 6) : all;
         
         if (recent.isEmpty()) {
             Label emptyLabel = new Label("No transactions yet");
@@ -271,6 +273,8 @@ public class CustomerController implements Initializable {
         } else {
             account.setBalance(account.getBalance() + amount);
         }
+
+        AccountStore.updateAccount(account);
 
         // Create transaction
         String dateStr = LocalDate.now().format(dateFormatter);

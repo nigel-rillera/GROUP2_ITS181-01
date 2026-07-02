@@ -3,6 +3,8 @@
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
 
 <!--
     splash.fxml  —  BankSys Banking Application Splash / Landing Screen
@@ -23,21 +25,23 @@
             <Insets bottom="36" left="32" right="32" top="36" />
         </padding>
 
-        <!-- ── Icon Chip (48×48, rounded 12px, light-blue bg) ─────────── -->
-        <StackPane maxHeight="48" maxWidth="48" prefHeight="48" prefWidth="48" styleClass="icon-chip">
-            <!--
-                Bank glyph — Unicode "🏦" renders as emoji on most systems.
-                Fallback: a bold "B" styled in brand blue via icon-chip-glyph.
-                We use a Label so JavaFX can style it with CSS.
-            -->
-            <Label style="-fx-font-size: 22px;" styleClass="icon-chip-glyph" text="🏦" />
-        </StackPane>
+        <!-- ── Logo Image ─────────── -->
+        <HBox alignment="CENTER" maxWidth="Infinity">
+            <ImageView fitWidth="140" preserveRatio="true">
+                <image>
+                    <Image url="@/images/Ccash.png" />
+                </image>
+            </ImageView>
+        </HBox>
 
         <!-- Spacing below icon chip -->
         <Region prefHeight="20" />
 
         <!-- ── Title ────────────────────────────────────────────────────── -->
-        <Label styleClass="title-text" text="Welcome to BankSys" wrapText="true" />
+        <Label styleClass="title-text" text="Welcome to Ccash" textAlignment="CENTER" wrapText="true">
+         <font>
+            <Font size="16.0" />
+         </font></Label>
 
         <!-- Spacing between title and subtitle -->
         <Region prefHeight="8" />

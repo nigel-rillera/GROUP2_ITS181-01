@@ -101,6 +101,11 @@ public class CreateAccountController implements Initializable {
         // ComboBox shows "Customer" / "Admin"; Account stores "CUSTOMER" / "ADMIN"
         String accountType = selectedType.toUpperCase();
 
+        if (AccountStore.accountExists(accountNumber)) {
+            showError("Account number already exists.");
+            return;
+        }
+
         // ── Create and store the account ──────────────────────────
         Account newAccount = new Account(accountNumber, ownerName, password, accountType, 0.0);
         AccountStore.addAccount(newAccount);

@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<!--
+  admin_dashboard.fxml — Admin Dashboard
+  Layout: BorderPane with fixed 190px sidebar (left) and
+  growing ScrollPane main content area (center).
+  Controller: AdminController
+  Stylesheet: /css/app.css
+-->
+<StackPane
+    styleClass="bank-root"
+    stylesheets="/css/app.css"
+    xmlns="http://javafx.com/javafx/17.0.2-ea"
+    xmlns:fx="http://javafx.com/fxml/1"
+    fx:controller="com.gabriel.prod.utilControllers.AdminController">
+
+    <!-- ── Main Layout: BorderPane ──────────────────────────────────────── -->
+    <BorderPane>
+
+        <!-- ── Left Sidebar ─────────────────────────────────────────────── -->
+        <left>
+            <VBox prefWidth="190" minWidth="190" maxWidth="190" styleClass="sidebar">
+
+                <!-- Logged-in-as section -->
+                <VBox styleClass="sidebar-profile-section" spacing="2">
+                    <Label text="Logged in as" styleClass="sidebar-welcome-label" />
+                    <Label fx:id="lblAdminName" text="Admin User" styleClass="sidebar-owner-label" wrapText="true" />
+                    <Label fx:id="lblAdminAccountNumber" text="ADMIN-001" styleClass="sidebar-account-label" />
+                </VBox>
+
+                <!-- Navigation section -->
+                <VBox styleClass="sidebar-nav-section" spacing="4">
+                    <!-- Accounts — active by default, purple accent -->
+                    <Button text="Accounts" styleClass="btn-sidebar-nav-active-admin" maxWidth="Infinity" />
+                    <Region styleClass="divider-line" minHeight="1">
+                        <VBox.margin><Insets top="8" bottom="8" /></VBox.margin>
+                    </Region>
+                    <Button text="Log out" styleClass="btn-sidebar-logout" maxWidth="Infinity" onAction="#onLogOut" />
+                </VBox>
+
+            </VBox>
+        </left>
+
+        <!-- ── Center Content Area ──────────────────────────────────────── -->
+        <center>
+            <ScrollPane fitToWidth="true" styleClass="dashboard-scroll-pane" hbarPolicy="NEVER">
+                <VBox spacing="20" styleClass="dashboard-main-content">
+                    <padding><Insets top="26" right="26" bottom="26" left="26" /></padding>
+
+                    <!-- ── Header Row ──────────────────────────────────── -->
+                    <HBox alignment="CENTER_LEFT">
+                        <VBox spacing="2" HBox.hgrow="ALWAYS">
+                            <Label text="Account management" styleClass="dashboard-header-title" />
+                            <Label text="Create, modify, delete, and view all accounts"
+                                   styleClass="dashboard-header-subtitle" />
+                        </VBox>
+                        <Button text="+ New account" styleClass="btn-admin-new-account"
+                                onAction="#onNewAccount" />
+                    </HBox>
+
+                    <!-- ── Stat Cards Row ──────────────────────────────── -->
+                    <HBox spacing="14">
+                        <!-- Total Accounts -->
+                        <VBox styleClass="admin-stat-card" spacing="6" HBox.hgrow="ALWAYS" maxWidth="Infinity">
+                            <Label text="Total accounts" styleClass="admin-stat-label" />
+                            <Label fx:id="lblTotalAccounts" text="0" styleClass="admin-stat-value" />
+                        </VBox>
+                        <!-- Customers -->
+                        <VBox styleClass="admin-stat-card" spacing="6" HBox.hgrow="ALWAYS" maxWidth="Infinity">
+                            <Label text="Customers" styleClass="admin-stat-label" />
+                            <Label fx:id="lblCustomerCount" text="0" styleClass="admin-stat-value" />
+                        </VBox>
+                        <!-- Admins -->
+                        <VBox styleClass="admin-stat-card" spacing="6" HBox.hgrow="ALWAYS" maxWidth="Infinity">
+                            <Label text="Admins" styleClass="admin-stat-label" />
+                            <Label fx:id="lblAdminCount" text="0" styleClass="admin-stat-value" />
+                        </VBox>
+                    </HBox>
+
+                    <!-- ── Search Bar ──────────────────────────────────── -->
+                    <HBox styleClass="admin-search-bar" alignment="CENTER_LEFT" spacing="8">
+                        <Label text="&#128269;" styleClass="admin-search-icon" />
+                        <TextField fx:id="tfSearch"
+                                   promptText="Search by account number or name..."
+                                   styleClass="admin-search-field"
+                                   HBox.hgrow="ALWAYS"
+                                   maxWidth="Infinity" />
+                    </HBox>
+
+                    <!-- ── Accounts Table Card ─────────────────────────── -->
+                    <VBox styleClass="activity-card" spacing="0">
+                        <!-- Table wrapped in a fixed-height ScrollPane (max ~280px) -->
+                        <ScrollPane fitToWidth="true"
+                                    styleClass="dashboard-scroll-pane"
+                                    prefHeight="280" minHeight="100" maxHeight="280"
+                                    hbarPolicy="NEVER">
+                            <TableView fx:id="accountTable"
+                                       styleClass="admin-table">
+                                <columns>
+                                    <TableColumn fx:id="colAccountNumber"
+                                                 text="Account number"
+                                                 styleClass="admin-table-col"
+                                                 prefWidth="120" />
+                                    <TableColumn fx:id="colOwnerName"
+                                                 text="Owner name"
+                                                 styleClass="admin-table-col"
+                                                 prefWidth="140" />
+                                    <TableColumn fx:id="colType"
+                                                 text="Type"
+                                                 styleClass="admin-table-col"
+                                                 prefWidth="90" />
+                                    <TableColumn fx:id="colBalance"
+                                                 text="Balance"
+                                                 styleClass="admin-table-col"
+                                                 prefWidth="110" />
+                                    <TableColumn fx:id="colActions"
+                                                 text="Actions"
+                                                 styleClass="admin-table-col"
+                                                 prefWidth="90" />
+                                </columns>
+                                <placeholder>
+                                    <Label text="No accounts found." styleClass="transaction-empty-label" />
+                                </placeholder>
+                            </TableView>
+                        </ScrollPane>
+                    </VBox>
+
+                </VBox>
+            </ScrollPane>
+        </center>
+
+    </BorderPane>
+
+    <!-- ── Modal Overlay (hidden by default; shared for Create/Modify/Delete) ─ -->
+    <StackPane fx:id="modalOverlay" styleClass="modal-overlay"
+               visible="false" managed="false" alignment="CENTER">
+
+        <VBox styleClass="modal-card" prefWidth="410" maxWidth="410"
+              prefHeight="650" maxHeight="650"
+              spacing="16" StackPane.alignment="CENTER">
+
+            <!-- Icon chip -->
+            <StackPane fx:id="modalIconChip"
+                       prefWidth="250" prefHeight="56"
+                       maxWidth="250" maxHeight="56"
+                       alignment="CENTER">
+                <Label fx:id="modalIconGlyph" text="" alignment="CENTER"
+                       styleClass="admin-modal-glyph-create" />
+            </StackPane>
+
+            <!-- Title + Subtitle -->
+            <VBox spacing="4">
+                <Label fx:id="lblModalTitle" text="Title" styleClass="modal-title" />
+                <Label fx:id="lblModalSubtitle" text="Subtitle"
+                       styleClass="modal-subtitle" wrapText="true" />
+            </VBox>
+
+            <!-- ── Fields section (Create + Modify) ──────────────────── -->
+            <ScrollPane fitToWidth="true" hbarPolicy="NEVER" vbarPolicy="AS_NEEDED"
+                        VBox.vgrow="ALWAYS" styleClass="modal-fields-scroll">
+            <VBox fx:id="modalFieldsSection" spacing="10">
+                <padding><Insets top="2" right="4" bottom="2" left="4" /></padding>
+
+                <!-- Account number -->
+                <VBox spacing="4">
+                    <Label text="Account number" styleClass="field-label-bank" />
+                    <TextField fx:id="tfModalAccNumber"
+                               promptText="e.g. ACC-20240007"
+                               styleClass="bank-text-field" />
+                </VBox>
+
+                <!-- Owner name -->
+                <VBox spacing="4">
+                    <Label text="Owner name" styleClass="field-label-bank" />
+                    <TextField fx:id="tfModalOwnerName"
+                               promptText="e.g. Maria Santos"
+                               styleClass="bank-text-field" />
+                </VBox>
+
+                <!-- Password -->
+                <VBox spacing="4">
+                    <Label text="Password" styleClass="field-label-bank" />
+                    <PasswordField fx:id="pfModalPassword"
+                                  promptText="••••••••"
+                                  styleClass="bank-text-field" />
+                </VBox>
+
+                <!-- Account type -->
+                <VBox spacing="4">
+                    <Label text="Account type" styleClass="field-label-bank" />
+                    <ComboBox fx:id="cbModalType"
+                              styleClass="bank-combo-box"
+                              maxWidth="Infinity" />
+                </VBox>
+
+                <!-- Balance -->
+                <VBox spacing="4">
+                    <Label text="Initial balance" styleClass="field-label-bank" />
+                    <TextField fx:id="tfModalBalance"
+                               promptText="0.00"
+                               styleClass="bank-text-field" />
+                </VBox>
+
+            </VBox>
+            </ScrollPane>
+
+            <!-- ── Delete info pill <!- Fields section (Create and Modify) -->
+            <VBox fx:id="modalDeleteSection" visible="false" managed="false" spacing="8">
+                <HBox styleClass="admin-delete-pill" alignment="CENTER_LEFT" spacing="8">
+                    <Label fx:id="lblDeleteInfo" text="" styleClass="admin-delete-pill-text"
+                           wrapText="true" />
+                </HBox>
+            </VBox>
+
+            <!-- Inline error label -->
+            <Label fx:id="lblModalError" text="" styleClass="validation-error"
+                   visible="false" managed="false" wrapText="true" />
+
+            <!-- Button row -->
+            <HBox spacing="10">
+                <Button text="Cancel" styleClass="btn-modal-cancel"
+                        HBox.hgrow="ALWAYS" maxWidth="Infinity"
+                        onAction="#onModalCancel" />
+                <Button fx:id="btnModalConfirm" text="Confirm"
+                        HBox.hgrow="ALWAYS" maxWidth="Infinity"
+                        onAction="#onModalConfirm" />
+            </HBox>
+
+        </VBox>
+    </StackPane>
+
+</StackPane>

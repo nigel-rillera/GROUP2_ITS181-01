@@ -61,7 +61,7 @@
                     <!-- Action Cards Row -->
                     <HBox spacing="14">
                         <VBox styleClass="action-card" spacing="10" HBox.hgrow="ALWAYS" maxWidth="Infinity" onMouseClicked="#onDepositClick">
-                            <StackPane styleClass="action-icon-chip-deposit" prefWidth="36" prefHeight="36" maxWidth="36" maxHeight="36" alignment="CENTER_LEFT">
+                            <StackPane styleClass="action-icon-chip-deposit" prefWidth="36" prefHeight="36" maxWidth="36" maxHeight="36" alignment="CENTER">
                                 <Label text="&#x21A7;" styleClass="action-icon-glyph-deposit" alignment="CENTER" />
                             </StackPane>
                             <VBox spacing="2">
@@ -71,7 +71,7 @@
                         </VBox>
                         
                         <VBox styleClass="action-card" spacing="10" HBox.hgrow="ALWAYS" maxWidth="Infinity" onMouseClicked="#onWithdrawClick">
-                            <StackPane styleClass="action-icon-chip-withdraw" prefWidth="36" prefHeight="36" maxWidth="36" maxHeight="36" alignment="CENTER_LEFT">
+                            <StackPane styleClass="action-icon-chip-withdraw" prefWidth="36" prefHeight="36" maxWidth="36" maxHeight="36" alignment="CENTER">
                                 <Label text="&#x21A5;" styleClass="action-icon-glyph-withdraw" alignment="CENTER" />
                             </StackPane>
                             <VBox spacing="2">
@@ -106,7 +106,7 @@
     <StackPane fx:id="modalOverlay" styleClass="modal-overlay" visible="false" managed="false" alignment="CENTER">
         <VBox styleClass="modal-card" prefWidth="340" maxWidth="340" maxHeight="-Infinity" spacing="16" StackPane.alignment="CENTER">
             
-            <StackPane fx:id="modalIconChip" prefWidth="40" prefHeight="40" maxWidth="40" maxHeight="40" alignment="CENTER_LEFT">
+            <StackPane fx:id="modalIconChip" prefWidth="40" prefHeight="40" maxWidth="40" maxHeight="40" alignment="CENTER">
                 <Label fx:id="modalIconGlyph" text="" alignment="CENTER" />
             </StackPane>
             
